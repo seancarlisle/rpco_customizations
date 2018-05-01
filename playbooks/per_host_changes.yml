@@ -19,7 +19,7 @@
     - name: Override global nf_conntrack for swift storage nodes in sysctl.conf
       lineinfile:
         dest: /etc/sysctl.conf
-        regexp: net.netfilter.nf_conntrack_max=524288
+        regexp: "nf_conntrack_max.*$"
         line: net.netfilter.nf_conntrack_max=1048576
         state: present
     - name: Apply nf_conntrack overrides to running config
@@ -31,7 +31,7 @@
     - name: Override global nf_conntrack for infra hosts in sysctl.conf
       lineinfile:
         dest: /etc/sysctl.conf
-        regexp: net.netfilter.nf_conntrack_max=524288
+        regexp: "nf_conntrack_max.*$"
         line: net.netfilter.nf_conntrack_max=786435
         state: present
     - name: Apply nf_conntrack overrides to running config
@@ -43,7 +43,7 @@
     - name: Override global nf_conntrack for infra hosts in sysctl.conf
       lineinfile:
         dest: /etc/sysctl.conf
-        regexp: net.netfilter.nf_conntrack_max=524288
+        regexp: "nf_conntrack_max.*$"
         line: net.netfilter.nf_conntrack_max=1048576
         state: present
     - name: Apply nf_conntrack overrides to running config
