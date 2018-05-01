@@ -21,3 +21,22 @@
         src: "files/elasticsearch_post_install.yml.patch"
         dest: "/opt/rpc-openstack/rpcd/playbooks/roles/elasticsearch/tasks/elasticsearch_post_install.yml"
         backup: yes
+
+- name: Add Curator Files to Elasticsearch Host
+  hosts: elasticsearch
+  tasks:
+    - name: Generate the curator_action.yml file
+      template:
+        src: "templates/"
+        dest: "/root/"
+    - name: Generate the curator_config.yml file
+      template:
+        src: "templates/curator_config.yml.j2"
+        dest: "/root/curator_action.yml"
+  vars:
+    logstash_nodebug_delete_days: 60
+    logstash_debug_delete_days: 10            
+    elasticsearch_curator_host: localhost
+    elasticsearch_tcp_port: 9200
+    elasticsearch_curator_timeout: 30
+    elasticsearch_curator_log_level: INFO
