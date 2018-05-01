@@ -1,0 +1,81 @@
+---
+# Copyright 2018, Rackspace US, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Set nf_conntrack_max to 1 million for Swift nodes
+  hosts: swift_hosts
+  tasks:
+    - name: Override global nf_conntrack for swift storage nodes in sysctl.conf
+      lineinfile:
+        dest: /etc/sysctl/sysctl.conf
+        regexp: net.netfilter.nf_conntrack_max=524288
+        line: net.netfilter.nf_conntrack_max=1048576
+        state: present
+    - name: Apply nf_conntrack overrides to running config
+      command: "sysctl -w net.netfilter.nf_conntrack_max=1048576"
+
+- name: Set nf_conntrack_max to 786435 for infra hosts
+  hosts: os-infra_hosts
+  tasks:
+    - name: Override global nf_conntrack for infra hosts in sysctl.conf
+      lineinfile:
+        dest: /etc/sysctl.conf
+        regexp: net.netfilter.nf_conntrack_max=524288
+        line: net.netfilter.nf_conntrack_max=786435
+        state: present
+    - name: Apply nf_conntrack overrides to running config
+      command: "sysctl -w net.netfilter.nf_conntrack_max=786435"
+
+- name: Set nf_conntrack_max to 1048576 for 813306-compute105 
+  hosts: 813306-compute105
+  tasks:
+    - name: Override global nf_conntrack for infra hosts in sysctl.conf
+      lineinfile:
+        dest: /etc/sysctl.conf
+        regexp: net.netfilter.nf_conntrack_max=524288
+        line: net.netfilter.nf_conntrack_max=1048576
+        state: present
+    - name: Apply nf_conntrack overrides to running config
+      command: "sysctl -w net.netfilter.nf_conntrack_max=1048576"
+
+- name: Set arp_announce for all routers
+  hosts: neutron_l3_agent:os-infra_hosts
+  tasks:
+    - name: Add arp_announce to sysctl.conf
+      lineinfile:
+        dest: /etc/sysctl.conf
+        line: "#Added per RS Ticket 170926-15340\nnet.ipv4.conf.all.arp_announce=2"
+        state: present
+    - name: Apply arp_announce to running config
+      command: "sysctl -w net.ipv4.conf.all.arp_announce=2"
+
+- name: Set single-VM configuration for 813305-compute104 and 813306-compute105
+  hosts: 813305-compute104,813306-compute105
+  tasks:
+    - name: Set CPU Allocation ratio to 1 in nova.conf
+      lineinfile:
+        dest: /etc/nova/nova.conf
+        regexp: "cpu_allocation_ratio = 4.0"
+        line: "cpu_allocation_ratio = 1.0"
+        state: present
+    - name: Add VCPU Pin Set to nova.conf
+      lineinfile:
+        dest: /etc/nova/nova.conf
+        regexp: "scheduler_use_baremetal_filters ="
+        insertafter: "scheduler_use_baremetal_filters ="
+        line: "vcpu_pin_set = 1-11,13-23,25-35,37-47"
+    - name: Restart nova-compute service
+      service:
+        name: nova-compute
+        state: restarted
