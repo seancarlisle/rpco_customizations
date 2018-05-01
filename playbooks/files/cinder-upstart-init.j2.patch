@@ -1,0 +1,12 @@
+--- /etc/ansible/roles/os_cinder/templates/cinder-upstart-init.j2	2018-04-30 22:09:48.002888552 +0000
++++ /etc/ansible/roles/os_cinder/templates/cinder-upstart-init.j2	2018-04-19 22:49:46.678416855 +0000
+@@ -36,6 +36,9 @@
+   sleep {{ cinder_restart_wait }}
+ end script
+
++# Added per 170927-14066
++limit nofile 4096 4096
++
+ # Run the start up job
+ exec start-stop-daemon --start \
+                        --chuid {{ cinder_system_user_name }} \

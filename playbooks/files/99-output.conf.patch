@@ -1,0 +1,22 @@
+--- /opt/rpc-openstack/rpcd/playbooks/roles/logstash/templates/99-output.conf	2018-05-01 09:58:16.000000000 -0500
++++ /opt/rpc-openstack/rpcd/playbooks/roles/logstash/templates/99-output.conf	2018-04-23 14:46:33.000000000 -0500
+@@ -1,8 +1,15 @@
+ #===============================================================================
+ output {
+-    elasticsearch {
+-        template_overwrite => true
+-        hosts => ['{{ hostvars[groups['elasticsearch'][0]]['container_address'] }}:{{ elasticsearch_tcp_port }}']
+-    }
++    if [loglevel] != "DEBUG" and [module] != 'keystoneauth.session' and [module] != 'swift.container-server' and [module] != 'swift.swift' and [module] != 'neutron.wsgi' and [module] != 'nova.virt.libvirt.imagecache' and [module] != 'nova.osapi_compute.wsgi.server' {
++        elasticsearch {
++             hosts => ['{{ hostvars[groups['elasticsearch'][0]]['container_address'] }}:{{ elasticsearch_tcp_port }}']
++             index => "logstash-nodebug-%{+YYYY.MM.dd}"
++        }
++    } else {
++        elasticsearch {
++             hosts => ['{{ hostvars[groups['elasticsearch'][0]]['container_address'] }}:{{ elasticsearch_tcp_port }}']
++             index => "logstash-%{+YYYY.MM.dd}"
++        }
++   }
+ }
+ #===============================================================================

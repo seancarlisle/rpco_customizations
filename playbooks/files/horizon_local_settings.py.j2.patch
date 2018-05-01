@@ -1,0 +1,20 @@
+--- /etc/ansible/rolesos_horizon/templates/horizon_local_settings.py.j2	2018-05-01 10:19:07.000000000 -0500
++++ /etc/ansible/rolesos_horizon/templates/horizon_local_settings.py.j2	2018-05-01 10:17:59.000000000 -0500
+@@ -71,7 +71,7 @@
+ {%   if not horizon_keystone_multidomain_support | bool %}
+ # Overrides the default domain used when running on single-domain model
+ # with Keystone V3. All entities will be created in the default domain.
+-OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = "{{ horizon_keystone_default_domain }}"
++# OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = "{{ horizon_keystone_default_domain }}"
+ {%   endif %}
+ {% endif %}
+ 
+@@ -176,7 +176,7 @@
+ WEBSSO_ENABLED = True
+ 
+ # Determines which authentication choice to show as default.
+-WEBSSO_INITIAL_CHOICE = "credentials"
++WEBSSO_INITIAL_CHOICE = "saml2"
+ 
+ # The list of authentication mechanisms which include keystone
+ # federation protocols and identity provider/federation protocol

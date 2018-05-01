@@ -1,0 +1,11 @@
+--- /etc/ansible/roles/os_cinder/templates/lvm.conf.j2	2017-05-19 15:39:16.000000000 -0500
++++ /etc/ansible/roles/os_cinder/templates/lvm.conf.j2	2018-05-01 09:02:04.000000000 -0500
+@@ -39,7 +39,7 @@
+     data_alignment_detection = 1
+     data_alignment = 0
+     data_alignment_offset_detection = 1
+-    ignore_suspended_devices = 0
++    ignore_suspended_devices = 1
+     disable_after_error_count = 0
+     require_restorefile_with_uuid = 1
+     pv_min_size = 2048

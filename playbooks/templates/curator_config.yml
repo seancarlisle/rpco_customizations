@@ -1,0 +1,10 @@
+# Remember, leave a key empty if there is no value.  None will be a string,
+# not a Python "NoneType"
+client:
+  hosts:
+    - {{elasticsearch_curator_host}}
+  port: {{ elasticsearch_tcp_port }}
+  timeout: {{ elasticsearch_curator_timeout }}
+
+logging:
+  loglevel: {{ elasticsearch_curator_log_level }}

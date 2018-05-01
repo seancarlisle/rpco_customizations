@@ -1,0 +1,11 @@
+--- /opt/rpc-openstack/rpcd/playbooks/roles/elasticsearch/tasks/elasticsearch_post_install.yml	2018-05-01 09:57:22.000000000 -0500
++++ /opt/rpc-openstack/rpcd/playbooks/roles/elasticsearch/tasks/elasticsearch_post_install.yml	2018-05-01 10:08:08.000000000 -0500
+@@ -53,7 +53,7 @@
+     minute: 0
+     hour: 0
+     user: "root"
+-    job: "/usr/local/bin/curator --host {{ hostvars[inventory_hostname]['container_address'] }} delete indices --older-than {{ elasticsearch_prune_days }} --time-unit 'days' --timestring '%Y.%m.%d' --prefix 'logstash'"
++    job: "/usr/local/bin/curator --config /root/curator_config.yml /root/curator_action.yml"
+     cron_file: "elasticsearch_curator"
+ 
+ - name: Get ElasticSearch version

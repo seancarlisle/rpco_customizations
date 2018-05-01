@@ -1,0 +1,14 @@
+--- /etc/ansible/roles/os_keystone/templates/shibboleth2.xml.j2	2018-05-01 10:25:44.000000000 -0500
++++ /etc/ansible/roles/os_keystone/templates/shibboleth2.xml.j2	2018-05-01 10:27:57.000000000 -0500
+@@ -62,10 +62,7 @@
+         -->
+ {% if keystone_sp.trusted_idp_list is defined -%}
+     {% for item in keystone_sp.trusted_idp_list %}
+-        <MetadataProvider type="XML"
+-                          uri="{{ item.metadata_uri }}"
+-                          backingFilePath="{{ item.metadata_file }}"
+-                          reloadInterval="{{ item.metadata_reload }}" />
++        <MetadataProvider type="Folder" path="/var/cache/shibboleth/" />
+     {% endfor %}
+ {% endif %}
+ 

@@ -1,0 +1,20 @@
+--- /Users/sean4574/Code/rsyslog_server/templates/rsyslog.conf.j2	2018-05-01 10:33:59.000000000 -0500
++++ files/rsyslog.conf.j2.ge	2018-05-01 10:32:56.000000000 -0500
+@@ -31,9 +31,16 @@
+ 
+ 
+ # Log all remote messages into a sub directory
++#template(name="DDF" type="string" string="{{ rsyslog_server_storage_directory }}/%hostname%/%programname%.log")
++#ruleset(name="remote"){
++#  *.* -?DDF
++#}
++
+ template(name="DDF" type="string" string="{{ rsyslog_server_storage_directory }}/%hostname%/%programname%.log")
+ ruleset(name="remote"){
+-  *.* -?DDF
++if \
++$source != 'logsrv' \
++then -?DDF
+ }
+ 
+ # Switch back to default ruleset
