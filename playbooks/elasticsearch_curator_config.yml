@@ -27,8 +27,8 @@
   tasks:
     - name: Generate the curator_action.yml file
       template:
-        src: "templates/"
-        dest: "/root/"
+        src: "templates/curator_action.yml.j2"
+        dest: "/root/curator_action.yml"
     - name: Generate the curator_config.yml file
       template:
         src: "templates/curator_config.yml.j2"
