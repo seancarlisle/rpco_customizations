@@ -32,7 +32,7 @@
     - name: Generate the curator_config.yml file
       template:
         src: "templates/curator_config.yml.j2"
-        dest: "/root/curator_action.yml"
+        dest: "/root/curator_config.yml"
   vars:
     logstash_nodebug_delete_days: 60
     logstash_debug_delete_days: 10            
