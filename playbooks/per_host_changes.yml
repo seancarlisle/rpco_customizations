@@ -61,6 +61,9 @@
       command: "sysctl -w net.ipv4.conf.all.arp_announce=2"
     - name: Apply arp_announce to all router namespaces
       command: "for rtr in $(ip netns list | grep router);do ip netns exec $rtr sysctl -w net.ipv4.conf.all.arp_announce=2;done"
+    - name: Print routers
+      debug:
+        msg: "Here be router namespaces: {{ router_namespaces.stdout_lines }}"
 
 - name: Set single-VM configuration for 813305-compute104 and 813306-compute105
   hosts: 813305-compute104,813306-compute105
