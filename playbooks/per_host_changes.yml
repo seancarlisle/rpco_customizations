@@ -20,7 +20,7 @@
       lineinfile:
         dest: /etc/sysctl.conf
         regexp: "nf_conntrack_max.*$"
-        line: net.netfilter.nf_conntrack_max=1048576
+        line: "net.netfilter.nf_conntrack_max=1048576"
         state: present
     - name: Apply nf_conntrack overrides to running config
       command: "sysctl -w net.netfilter.nf_conntrack_max=1048576"
@@ -32,7 +32,7 @@
       lineinfile:
         dest: /etc/sysctl.conf
         regexp: "nf_conntrack_max.*$"
-        line: net.netfilter.nf_conntrack_max=786435
+        line: "net.netfilter.nf_conntrack_max=786435"
         state: present
     - name: Apply nf_conntrack overrides to running config
       command: "sysctl -w net.netfilter.nf_conntrack_max=786435"
@@ -44,7 +44,7 @@
       lineinfile:
         dest: /etc/sysctl.conf
         regexp: "nf_conntrack_max.*$"
-        line: net.netfilter.nf_conntrack_max=1048576
+        line: "net.netfilter.nf_conntrack_max=1048576"
         state: present
     - name: Apply nf_conntrack overrides to running config
       command: "sysctl -w net.netfilter.nf_conntrack_max=1048576"
