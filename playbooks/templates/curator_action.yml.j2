@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 # Remember, leave a key empty if there is no value.  None will be a string,
 # not a Python "NoneType"
 #
@@ -8,7 +10,7 @@ actions:
   1:
    action: delete_indices
    description: >-
-     Delete indices older than {{ logstash_nodebug_delete_days }}180 days (based on index name), for logstash-nodebug-
+     Delete indices older than {{ logstash_nodebug_delete_days }} days (based on index name), for logstash-nodebug-
      prefixed indices. Ignore the error if the filter does not result in an
      actionable list of indices (ignore_empty_list) and exit cleanly.
    options:
@@ -23,11 +25,11 @@ actions:
      direction: older
      timestring: '%Y.%m.%d'
      unit: days
-     unit_count: {{ logstash_nodebug_delete_days }} 60
+     unit_count: {{ logstash_nodebug_delete_days }}
   2:
     action: delete_indices
     description: >-
-      Delete indices older than {{ logstash_debug_delete_days }} 20 days (based on index name), for custom-
+      Delete indices older than {{ logstash_debug_delete_days }} days (based on index name), for custom-
       prefixed indices. Ignore the error if the filter does not result in an
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
@@ -44,4 +46,4 @@ actions:
       direction: older
       timestring: '%Y.%m.%d'
       unit: days
-      unit_count: {{ logstash_debug_delete_days }} 10
+      unit_count: {{ logstash_debug_delete_days }}
