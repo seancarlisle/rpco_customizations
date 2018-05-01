@@ -66,6 +66,11 @@
     - name: Print routers
       debug:
         msg: "Here be router namespaces: {{ router_namespaces.stdout_lines }}"
+    - name: Apply arp_announce to routers
+      command: "ip netns exec {{ item }} sysctl -w net.ipv4.conf.all.arp_announce=2"
+      with_items:
+        - "{{ router_namespaces.stdout_lines }}"
+      when: router_namespaces.stdout_lines != ""
 
 - name: Set single-VM configuration for 813305-compute104 and 813306-compute105
   hosts: 813305-compute104,813306-compute105
