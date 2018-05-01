@@ -68,7 +68,7 @@
     - name: Set CPU Allocation ratio to 1 in nova.conf
       lineinfile:
         dest: /etc/nova/nova.conf
-        regexp: "cpu_allocation_ratio = 4.0"
+        regexp: "^cpu_allocation_ratio.*$"
         line: "cpu_allocation_ratio = 1.0"
         state: present
     - name: Add VCPU Pin Set to nova.conf
