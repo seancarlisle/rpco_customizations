@@ -24,22 +24,22 @@
       service:
         name: cinder-api
         state: restarted
-      when: "{{ ansible_hostname }}" | search("cinder-api")
+      when: "'cinder_api' in group_names"
     - name: Restart the cinder-scheduler service
       service:
         name: cinder-scheduler
         state: restarted
-      when: "{{ ansible_hostname }}" | search("cinder-scheduler")
+      when: "'cinder_scheduler' in group_names"
     - name: Restart the cinder-volume service
       service:
         name: cinder-volume
         state: restarted
-      when: "{{ ansible_hostname }}" | search("cinder-volume")
+      when: "'cinder_volume' in group_names"
     - name: Restart the cinder-backup service
       service:
         name: cinder-backup
         state: restarted
-      when: "{{ ansible_hostname }}" | search("cinder-backup")
+      when: "'cinder_backup' in group_names"
   vars:
     cinder_hard_nofile: 4096
     cinder_soft_nofile: 4096
