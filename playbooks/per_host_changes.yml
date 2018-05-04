@@ -37,6 +37,10 @@
     - name: Apply nf_conntrack overrides to running config
       command: "sysctl -w net.netfilter.nf_conntrack_max=786435"
 
+- name: Set nf_conntrack_max to 1048576 for neutron_agent containers and routers
+  hosts: neutron_agents
+  tasks:
+
 - name: Set nf_conntrack_max to 1048576 for 813306-compute105 
   hosts: 813306-compute105
   tasks:
@@ -68,6 +72,17 @@
         msg: "Here be router namespaces: {{ router_namespaces.stdout_lines }}"
     - name: Apply arp_announce to routers
       command: "ip netns exec {{ item }} sysctl -w net.ipv4.conf.all.arp_announce=2"
+      with_items:
+        - "{{ router_namespaces.stdout_lines }}"
+      when: router_namespaces.stdout_lines != ""
+    - name: Override global nf_conntrack for infra hosts in sysctl.conf
+      lineinfile:
+        dest: /etc/sysctl.conf
+        regexp: "nf_conntrack_max.*$"
+        line: "net.netfilter.nf_conntrack_max=1048576"
+        state: present
+    - name: Ensure nf_conntrack_max is set for all routers
+      command: "ip netns exec {{ item }} sysctl -w net.netfilter.nf_conntrack_max=1048576"
       with_items:
         - "{{ router_namespaces.stdout_lines }}"
       when: router_namespaces.stdout_lines != ""
