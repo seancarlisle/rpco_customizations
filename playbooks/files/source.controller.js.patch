@@ -1,0 +1,12 @@
+--- /openstack/venvs/horizon-14.2.14/lib/python2.7/site-packages/openstack_dashboard/dashboards/project/static/dashboard/project/workflow/launch-instance/source/source.controller.js	2018-01-15 20:44:20.000000000 +0000
++++ source.controller_new-417e93c6ba3797a2b3764826c21a0c09.js	2018-05-07 17:31:46.101703689 +0000
+@@ -419,7 +419,8 @@
+       ctrl.currentBootSource = selectedSource;
+       if ((selectedSource === bootSourceTypes.IMAGE ||
+            selectedSource === bootSourceTypes.INSTANCE_SNAPSHOT) && $scope.model.volumeBootable) {
+-        $scope.model.newInstanceSpec.vol_create = true;
++        $scope.model.newInstanceSpec.vol_create =
++          $scope.model.newInstanceSpec.create_volume_default;
+       } else {
+         $scope.model.newInstanceSpec.vol_create = false;
+       }

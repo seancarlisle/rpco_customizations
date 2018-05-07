@@ -1,0 +1,21 @@
+--- /openstack/venvs/horizon-14.2.14/lib/python2.7/site-packages/openstack_dashboard/dashboards/project/static/dashboard/project/workflow/launch-instance/launch-instance-model.service.js	2018-05-03 18:11:58.305513135 +0000
++++ launch-instance-model.service_new-dec544c9af1e106a674f3aefb960d8d6.js	2018-05-07 17:31:46.101703689 +0000
+@@ -181,6 +181,7 @@
+         // REQUIRED for JS logic (image | snapshot | volume | volume_snapshot)
+         source_type: null,
+         source: [],
++        create_volume_default: true,
+         // REQUIRED for JS logic
+         vol_create: false,
+         // May be null
+@@ -261,6 +262,10 @@
+       if ('config_drive' in defaults) {
+         model.newInstanceSpec.config_drive = defaults.config_drive;
+       }
++      if ('create_volume' in defaults) {
++        // Append "_default" to distinguish from the 'vol_create' item
++        model.newInstanceSpec.create_volume_default = defaults.create_volume;
++      }
+     }
+
+     /**

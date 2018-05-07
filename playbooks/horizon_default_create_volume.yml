@@ -1,0 +1,44 @@
+---
+# Copyright 2018, Rackspace US, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Apply patches for Instance Launcher Image Defaults (https://review.openstack.org/#/c/472815/)
+  hosts: horizon_all
+  tasks:
+     - name: Apply the launch-instance-model.service.js patch file
+       patch:
+         src: "files/launch-instance-model.service.js.patch"
+         dest: "/openstack/venvs/horizon-{{ openstack_release }}/lib/python2.7/site-packages/openstack_dashboard/dashboards/project/static/dashboard/project/workflow/launch-instance/launch-instance-model.service.js"
+         backup: yes
+     - name: Apply the launch-instance-model.service.spec.js patch file
+       patch:
+         src: "files/launch-instance-model.service.spec.js.patch"
+         dest: "/openstack/venvs/horizon-{{ openstack_release }}/lib/python2.7/site-packages/openstack_dashboard/dashboards/project/static/dashboard/project/workflow/launch-instance/launch-instance-model.service.spec.js"
+         backup: yes
+     - name: Apply the source.controller.js patch file
+       patch:
+         src: "files/source.controller.js.patch"
+         dest: "/openstack/venvs/horizon-{{ openstack_release }}/lib/python2.7/site-packages/openstack_dashboard/dashboards/project/static/dashboard/project/workflow/launch-instance/source/source.controller.js"
+         backup: yes
+     - name: Apply the source.controller.spec.js patch file
+       patch:
+         src: "files/source.controller.spec.js.patch"
+         dest: "/openstack/venvs/horizon-{{ openstack_release }}/lib/python2.7/site-packages/openstack_dashboard/dashboards/project/static/dashboard/project/workflow/launch-instance/source/source.controller.spec.js"
+         backup: yes
+     - name: Compress the json files
+       command: "/openstack/venvs/horizon-{{ openstack_release }}/bin/horizon-manage.py compress"
+     - name: Restart Horizon
+       service:
+         name: apache2
+         state: restarted
