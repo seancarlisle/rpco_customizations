@@ -1,20 +1,21 @@
---- /etc/ansible/rolesos_horizon/templates/horizon_local_settings.py.j2	2018-05-01 10:19:07.000000000 -0500
-+++ /etc/ansible/rolesos_horizon/templates/horizon_local_settings.py.j2	2018-05-01 10:17:59.000000000 -0500
-@@ -71,7 +71,7 @@
- {%   if not horizon_keystone_multidomain_support | bool %}
- # Overrides the default domain used when running on single-domain model
- # with Keystone V3. All entities will be created in the default domain.
--OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = "{{ horizon_keystone_default_domain }}"
-+# OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = "{{ horizon_keystone_default_domain }}"
- {%   endif %}
- {% endif %}
- 
-@@ -176,7 +176,7 @@
- WEBSSO_ENABLED = True
- 
- # Determines which authentication choice to show as default.
--WEBSSO_INITIAL_CHOICE = "credentials"
-+WEBSSO_INITIAL_CHOICE = "saml2"
- 
- # The list of authentication mechanisms which include keystone
- # federation protocols and identity provider/federation protocol
+--- horizon_local_settings.py.j2.orig	2018-05-07 20:43:03.009188372 +0000
++++ horizon_local_settings.py.j2	2018-05-07 20:44:25.797299721 +0000
+@@ -247,6 +247,18 @@
+ LAUNCH_INSTANCE_LEGACY_ENABLED = {{ horizon_launch_instance_legacy }}
+ LAUNCH_INSTANCE_NG_ENABLED = {{ horizon_launch_instance_ng }}
+
++# A dictionary of settings which can be used to provide the default values for
++# properties found in the Launch Instance modal.
++LAUNCH_INSTANCE_DEFAULTS = {
++    'config_drive': False,
++    'enable_scheduler_hints': True
++    'disable_image': False,
++    'disable_instance_snapshot': False,
++    'disable_volume': False,
++    'disable_volume_snapshot': False,
++    'create_volume': False,
++}
++
+ # The Xen Hypervisor has the ability to set the mount point for volumes
+ # attached to instances (other Hypervisors currently do not). Setting
+ # can_set_mount_point to True will add the option to set the mount point
