@@ -1,0 +1,10 @@
+--- my.cnf.j2	2018-05-07 22:16:13.916564183 +0000
++++ my.cnf.j2.new	2018-05-07 22:21:16.080964230 +0000
+@@ -79,6 +79,7 @@
+ innodb-flush-log-at-trx-commit = 1
+ innodb-file-per-table = 1
+ innodb-buffer-pool-size = {{ galera_innodb_buffer_pool_size }}
++innodb_lock_wait_timeout = 120
+
+ # Depending on number of cores and disk sub
+ innodb-read-io-threads = 4
