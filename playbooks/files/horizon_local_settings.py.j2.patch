@@ -1,5 +1,14 @@
---- horizon_local_settings.py.j2.orig	2018-05-07 20:43:03.009188372 +0000
-+++ horizon_local_settings.py.j2	2018-05-07 20:44:25.797299721 +0000
+--- templates/horizon_local_settings.py.j2	2018-05-01 10:19:07.000000000 -0500
++++ templates/horizon_local_settings.py.j2	2018-05-21 16:27:44.000000000 -0500
+@@ -176,7 +176,7 @@
+ WEBSSO_ENABLED = True
+
+ # Determines which authentication choice to show as default.
+-WEBSSO_INITIAL_CHOICE = "credentials"
++WEBSSO_INITIAL_CHOICE = "saml2"
+
+ # The list of authentication mechanisms which include keystone
+ # federation protocols and identity provider/federation protocol
 @@ -247,6 +247,18 @@
  LAUNCH_INSTANCE_LEGACY_ENABLED = {{ horizon_launch_instance_legacy }}
  LAUNCH_INSTANCE_NG_ENABLED = {{ horizon_launch_instance_ng }}
