@@ -1,0 +1,12 @@
+# Restart the ceilometer agent notification service every few hours to reset the deadlocks.
+# Each infra host container will restart 10 minutes apart from each other to prevent
+# all 3 infra nodes from bouncing the service at the same time. This is a very perly script.
+
+---
+- hosts: ceilometer_agent_notification
+  tasks:
+    - name: restart ceilometer agent notification cornjob
+      cron:
+        hour: "*/4"
+        minute: "{% set host_number = ansible_hostname.split('infra')[-1].split('-')[0]%} {{ host_number|int * 10}}"
+        job: service ceilometer-agent-notification restart
