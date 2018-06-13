@@ -42,5 +42,5 @@
        service:
          name: apache2
          state: restarted
-  vars_file:
+  vars_files:
     - "./group_vars/all.yml"
