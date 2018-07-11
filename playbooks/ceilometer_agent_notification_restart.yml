@@ -7,6 +7,6 @@
   tasks:
     - name: restart ceilometer agent notification cornjob
       cron:
-        hour: "*/4"
+        hour: "*/2"
         minute: "{% set host_number = ansible_hostname.split('infra')[-1].split('-')[0]%} {{ host_number|int * 10}}"
         job: service ceilometer-agent-notification restart
