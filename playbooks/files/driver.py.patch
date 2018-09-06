@@ -1,0 +1,24 @@
+--- driver.py.orig	2018-09-06 16:48:14.299781154 +0000
++++ driver.py.modified	2018-09-06 16:47:39.596482670 +0000
+@@ -868,11 +868,17 @@
+                 support_uefi = self._has_uefi_support()
+                 guest.delete_configuration(support_uefi)
+             except libvirt.libvirtError as e:
+-                with excutils.save_and_reraise_exception():
++                with excutils.save_and_reraise_exception() as ctxt:
+                     errcode = e.get_error_code()
+-                    LOG.error(_LE('Error from libvirt during undefine. '
+-                                  'Code=%(errcode)s Error=%(e)s'),
+-                              {'errcode': errcode, 'e': e}, instance=instance)
++                    if errcode == libvirt.VIR_ERR_NO_DOMAIN:
++                        LOG.debug("Called undefine, but domain already gone.",
++                                  instance=instance)
++                        ctxt.reraise = False
++                    else:
++                        LOG.error(_LE('Error from libvirt during undefine. '
++                                      'Code=%(errcode)s Error=%(e)s'),
++                                  {'errcode': errcode, 'e': e},
++                                  instance=instance)
+         except exception.InstanceNotFound:
+             pass
+ 
