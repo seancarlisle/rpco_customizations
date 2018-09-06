@@ -21,9 +21,6 @@
         src: "files/driver.py.patch"
         dest: "/openstack/venvs/nova-{{openstack_release}}/lib/python2.7/site-packages/nova/virt/libvirt/driver.py"
         backup: yes
-        owner: root
-        group: root
-        mode: "0644"
     - name: Restart the nova-compute service
       service:
         name: nova-compute
