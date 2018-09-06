@@ -99,7 +99,7 @@
     - name: Add VCPU Pin Set to nova.conf
       lineinfile:
         dest: /etc/nova/nova.conf
-        insertafter: "^# Compute$"
+        insertafter: "DEFAULT"
         line: "vcpu_pin_set = 1-11,13-23,25-35,37-47"
     - name: Restart nova-compute service
       service:
