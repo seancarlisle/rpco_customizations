@@ -16,11 +16,13 @@
 - name: Update libvirt's cpu_map.xml to include custom definition ('Haswell-Plus') for nested virt (vmx)
   hosts: compute_hosts
   tasks:
-    - name: Apply cpu_map.xml.j2 patch file
-      patch:
-        src: "files/cpu_map.xml.j2.patch"
+    - name: Copy custom cpu_map.xml
+      dest:
+        src: "files/cpu_map.xml"
         dest: "/usr/share/libvirt/cpu_map.xml"
-        backup: yes
+        owner: root
+        group: root
+        mode: 0644
     - name: Restart the libvirt-bin service
       service:
         name: libvirt-bin
