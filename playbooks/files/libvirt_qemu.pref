@@ -1,0 +1,15 @@
+Package: qemu-slof
+Pin: version 20151103+dfsg-1ubuntu1.1
+Pin-Priority: 900
+
+Package: ipxe-qemu
+Pin: version 1.0.0+git-20150424.a25a16d-1ubuntu1.2
+Pin-Priority: 900
+
+Package: qemu*
+Pin: version 1:2.5+dfsg-5ubuntu10.32
+Pin-Priority: 900
+
+Package: libvirt*
+Pin: version 1.3.1-1ubuntu10.24
+Pin-Priority: 900
