@@ -87,8 +87,8 @@
         - "{{ router_namespaces.stdout_lines }}"
       when: router_namespaces.stdout_lines != ""
 
-- name: Set single-VM configuration for 813305-compute104 and 813306-compute105
-  hosts: 813305-compute104,813306-compute105
+- name: Set single-VM configuration for 813306-compute105 and 813307-compute106
+  hosts: 813306-compute105,813307-compute106
   tasks:
     - name: Set CPU Allocation ratio to 1 in nova.conf
       lineinfile:
