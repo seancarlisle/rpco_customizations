@@ -1,1 +1,16 @@
 openstack_release: "r14.12.0"
+
+ceph_package_pinning_packages:
+  - ceph
+  - ceph-common
+  - libcephfs1
+  - librados2
+  - libradosstriper1
+  - librbd1
+  - librgw2
+  - python-ceph
+  - python-cephfs
+  - python-rados
+  - python-rbd
+
+ceph_package_pinning_version: 12.2.8

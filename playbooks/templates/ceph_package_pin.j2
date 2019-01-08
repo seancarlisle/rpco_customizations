@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+
+{% for item in ceph_package_pinning_packages %}
+Package: {{ item }}
+Pin: version {{ ceph_package_pinning_version }}
+Pin-Priority: 995
+
+{% endfor %}
