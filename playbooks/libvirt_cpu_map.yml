@@ -17,7 +17,7 @@
   hosts: compute_hosts
   tasks:
     - name: Copy custom cpu_map.xml
-      dest:
+      copy:
         src: "files/cpu_map.xml"
         dest: "/usr/share/libvirt/cpu_map.xml"
         owner: root
