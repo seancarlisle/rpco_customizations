@@ -88,7 +88,7 @@
       when: router_namespaces.stdout_lines != ""
 
 - name: Set single-VM configuration for 813306-compute105 and 813307-compute106
-  hosts: 813306-compute105,813307-compute106
+  hosts: 813305-compute104,813306-compute105,813307-compute106
   tasks:
     - name: Set CPU Allocation ratio to 1 in nova.conf
       lineinfile:
@@ -105,3 +105,13 @@
       service:
         name: nova-compute
         state: restarted
+    - name: Apply Grub configuration (REQUIRES REBOOT)
+      lineinfile:
+        dest: /etc/default/grub
+        regexp: "^GRUB_CMDLINE_LINUX=.*"
+        line: 'GRUB_CMDLINE_LINUX="isolcpus=1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43,44,45,46,47"'
+        state: present
+    - name: Install numactl
+      apt:
+        name: numactl
+        state: present
