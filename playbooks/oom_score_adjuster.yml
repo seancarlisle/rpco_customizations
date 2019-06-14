@@ -27,7 +27,7 @@
     - name: Drop the oom_score_adjuster cron job
       template:
         src: "templates/oom_score_adjuster.j2"
-        dest: "/etc/cron.d/"
+        dest: "/etc/cron.d/oom_score_adjuster"
       with_items:
-        - instance_id
+        - "{{ instance_id }}"
         
