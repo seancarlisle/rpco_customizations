@@ -115,3 +115,27 @@
       apt:
         name: numactl
         state: present
+
+- name: Apply network tuning changes to infra nodes (ticket 190409-06850)
+  hosts: os-infra_hosts
+  vars:
+    sysctl_rules:
+      net.ipv4.tcp_timestamps: 0
+      net.ipv4.tcp_sack: 1
+      net.core.rmem_max: 4194304
+      net.core.wmem_max: 4194304
+      net.core.rmem_default: 4194304
+      net.core.wmem_default: 4194304
+      net.core.optmem_max: 4194304
+      net.ipv4.tcp_rmem: "4096 87380 4194304"
+      net.ipv4.tcp_wmem: "4096 65536 4194304"
+      net.ipv4.tcp_low_latency: 1
+      net.ipv4.tcp_adv_win_scale: 1
+  tasks:
+    - name: Set sysctl values
+      sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+      with_dict: "{{ sysctl_rules }}"
+      when: sysctl_rules is defined
+      tags: [infra_sysctl]
