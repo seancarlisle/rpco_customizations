@@ -13,4 +13,4 @@ ceph_package_pinning_packages:
   - python-rados
   - python-rbd
 
-ceph_package_pinning_version: 12.2.8
+ceph_package_pinning_version: 12.2.8*
