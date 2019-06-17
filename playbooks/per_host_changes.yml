@@ -131,6 +131,8 @@
       net.ipv4.tcp_wmem: "4096 65536 4194304"
       net.ipv4.tcp_low_latency: 1
       net.ipv4.tcp_adv_win_scale: 1
+      net.core.netdev_max_backlog: 250000
+      net.core.netdev_budget: 1000
   tasks:
     - name: Set sysctl values
       sysctl:
