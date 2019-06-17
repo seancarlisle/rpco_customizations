@@ -118,6 +118,8 @@
 
 - name: Apply network tuning changes to infra nodes (ticket 190409-06850)
   hosts: os-infra_hosts
+  tags: 
+    - infra_sysctl
   vars:
     sysctl_rules:
       net.ipv4.tcp_timestamps: 0
@@ -140,4 +142,3 @@
         value: "{{ item.value }}"
       with_dict: "{{ sysctl_rules }}"
       when: sysctl_rules is defined
-      tags: [infra_sysctl]
