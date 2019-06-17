@@ -20,6 +20,7 @@
       file:
         src: "files/oom_score_adjuster.sh"
         dest: "/root/oom_score_adjuster.sh"
+        mode: "0755"
         backup: yes
     - name: Register single-instance instance ID
       shell: "/usr/bin/virsh list | /usr/bin/awk '/instance/ {print $2}'"
