@@ -1,0 +1,11 @@
+--- /openstack/venvs/maas-0.0.0/lib/python2.7/site-packages/monitorstack/common/formatters.py.orig	2019-03-28 17:00:48.252781000 +0000
++++ /openstack/venvs/maas-0.0.0/lib/python2.7/site-packages/monitorstack/common/formatters.py	2019-06-18 15:24:39.132335151 +0000
+@@ -104,7 +104,7 @@
+     return ','.join(store).rstrip(',')
+ 
+ 
+-def write_telegraf(result, config_file):
++def write_telegraf(result):
+     """Output in telegraf format."""
+     resultant = [result['measurement_name']]
+     if 'meta' in result:

@@ -1,0 +1,9 @@
+--- /usr/lib/rackspace-monitoring-agent/plugins/iptables_check.py.orig	2019-03-27 21:55:10.040532522 +0000
++++ /usr/lib/rackspace-monitoring-agent/plugins/iptables_check.py	2019-06-18 17:14:04.624281582 +0000
+@@ -109,5 +109,5 @@
+                         default=False,
+                         help='Set the output format to telegraf')
+     args = parser.parse_args()
+-    with print_output(print_telegraf=False):
++    with print_output(print_telegraf=args.telegraf_output):
+         main()
